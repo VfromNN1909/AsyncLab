@@ -1,6 +1,7 @@
 package ru.anfilek.asyncLab
 
 import android.os.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ru.anfilek.asyncLab.databinding.ActivityMainBinding
 
@@ -25,12 +26,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun startHandlerThread() {
         handlerThread = MyHandlerThread()
-        handlerThread?.start()
-        handlerThread?.post()
+        handlerThread?.doWork()
+        Toast.makeText(this, "Handler was started", Toast.LENGTH_SHORT).show()
     }
 
     private fun stopHandlerThread() {
         // optional
+        handlerThread?.quit()
     }
 
     private fun startAsync() {
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // DO NOT DO THIS! NEVER!
-    class MyAsyncTask : AsyncTask<String, Int, String>() {
+    inner class MyAsyncTask : AsyncTask<String, Int, String>() {
 
         override fun onPreExecute() {
             super.onPreExecute()
@@ -50,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
-//            tv.text = result
+            binding.tv.text = result
         }
 
         override fun onProgressUpdate(vararg values: Int?) {
