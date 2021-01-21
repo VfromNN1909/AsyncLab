@@ -31,7 +31,7 @@ class HandlerFirst(private val otherHandler: Handler.Callback) :
 
     override fun handleMessage(msg: Message): Boolean {
         val firstName = this.name
-        handleMassages(firstName, msg, otherHandler)
+        handleMessages(firstName, msg, otherHandler)
         return true
     }
 
@@ -66,12 +66,12 @@ class HandlerSecond :
 
     override fun handleMessage(msg: Message): Boolean {
         val secondName = this.name
-        handleMassages(secondName, msg, otherHandler)
+        handleMessages(secondName, msg, otherHandler)
         return true
     }
 }
 
-fun handleMassages(tag: String, message: Message, anotherHandler: Handler.Callback) {
+fun handleMessages(tag: String, message: Message, anotherHandler: Handler.Callback) {
     Log.d(tag, message.data.getString("status") ?: ThreadTags.STATUS_FAIL)
     Log.d(tag, "${message.data.getInt("value")}")
     val status: String
