@@ -21,6 +21,7 @@ class MyHandlerThread : HandlerThread(TAG) {
     lateinit var handler: Handler
         private set
 
+    // инициализируем хэндлер
     private fun myHandlerPrepare() {
         handler = Handler(looper)
     }
@@ -32,13 +33,14 @@ class MyHandlerThread : HandlerThread(TAG) {
     private fun postHandler(r: Runnable) {
         handler.post(r)
     }
-
+    // аргументы по умолчанию,дабы можно было вызывать этот метод как с аргументами, так и без них
     fun doWork(sleepTime: Long = SLEEP_TIME, msg: String = "It works!") {
         thread {
             post()
             postHandler {
                 Log.d(TAG, "handler message: $msg. Thread: ${Thread.currentThread().name}")
             }
+            // имитируем работу
             Thread.sleep(sleepTime)
 
         }

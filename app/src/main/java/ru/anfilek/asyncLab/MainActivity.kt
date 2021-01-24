@@ -27,12 +27,13 @@ class MainActivity : AppCompatActivity() {
     private fun startHandlerThread() {
         handlerThread = MyHandlerThread()
         handlerThread?.doWork()
-        Toast.makeText(this, "Handler was started", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Handler started", Toast.LENGTH_SHORT).show()
     }
 
     private fun stopHandlerThread() {
         // optional
         handlerThread?.quit()
+        Toast.makeText(this, "Handler stopped", Toast.LENGTH_SHORT).show()
     }
 
     private fun startAsync() {
