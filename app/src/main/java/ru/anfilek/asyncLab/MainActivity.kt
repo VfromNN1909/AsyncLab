@@ -8,7 +8,7 @@ import ru.anfilek.asyncLab.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private var handlerThread: MyHandlerThread? = null
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnAsync.setOnClickListener { startAsync() }
         binding.btnFreeze.setOnClickListener { freeze() }
 
-        testSharedResources()
+        testSharedResources(binding, this)
     }
 
     private fun startHandlerThread() {

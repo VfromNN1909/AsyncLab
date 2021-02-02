@@ -1,6 +1,8 @@
 package ru.anfilek.asyncLab
 
+import android.content.Context
 import android.util.Log
+import ru.anfilek.asyncLab.databinding.ActivityMainBinding
 import java.util.concurrent.Executors
 import kotlin.random.Random
 
@@ -17,7 +19,7 @@ class ThreadGame {
     }
 }
 // логика игры
-fun startGame() {
+fun startGame(binding: ActivityMainBinding, activity: MainActivity) {
     var firstThreadLastResult: Long = 0
     var secondThreadLastResult: Long = 0
     // использую executor, чтобы множно было оффнуть сразу все потоки разом через shutdown();
@@ -30,7 +32,9 @@ fun startGame() {
             if (ThreadGame.counter >= 100 && ThreadGame.flag) {
                 ThreadGame.flag = false
                 executor.shutdown()
-                Log.d("winner_thread", "Thread #2 wins with score - ${ThreadGame.counter}")
+                activity.runOnUiThread {
+                    activity.binding.tvGameResult.text = "Thread #2 wins with score - ${ThreadGame.counter}"
+                }
             }
 
         }
@@ -43,7 +47,9 @@ fun startGame() {
             if (ThreadGame.counter >= 100 && ThreadGame.flag) {
                 ThreadGame.flag = false
                 executor.shutdown()
-                Log.d("winner_thread", "Thread #1 wins with score - ${ThreadGame.counter}")
+                activity.runOnUiThread {
+                    activity.binding.tvGameResult.text = "Thread #1 wins with score - ${ThreadGame.counter}"
+                }
             }
 
         }
@@ -53,6 +59,6 @@ fun startGame() {
     executor.shutdown()
 }
 
-fun testSharedResources() {
-    startGame()
+fun testSharedResources(binding: ActivityMainBinding, activity: MainActivity) {
+    startGame(binding, activity)
 }
